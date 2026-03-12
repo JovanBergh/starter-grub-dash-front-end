@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import OrderFormDish from "./OrderFormDish";
 
 function OrderForm({
@@ -15,8 +15,7 @@ function OrderForm({
   readOnly = false,
   showStatus = false,
 }) {
-
-  const defaultOrder ={
+  const defaultOrder = {
     deliverTo: "",
     mobileNumber: "",
     status: "pending",
@@ -26,16 +25,17 @@ function OrderForm({
   const normalizedOrder = {
     ...defaultOrder,
     ...order,
-    order_id: order.order_id ?? order.id ?? undefined,
-    dishes: order.dishes?.map(dish => ({
-      id: dish.dish_id ?? dish.id ?? "",
-      dish_id: dish.dish_id ?? dish.id ?? "",
-      name: dish.name ?? "",
-      quantity: dish.quantity ?? 1,
-      price: dish.price ?? 0,
-    })) ?? [],
+    id: order.id ?? "",
+    dishes:
+      order.dishes?.map((dish) => ({
+        id: dish.id ?? "",
+        name: dish.name ?? "",
+        description: dish.description ?? "",
+        price: dish.price ?? 0,
+        image_url: dish.image_url ?? "",
+        quantity: dish.quantity ?? 1
+      })) ?? [],
   };
-
 
   function changeHandler({ target: { name, value } }) {
     setOrder((previousOrder) => ({
@@ -87,7 +87,7 @@ function OrderForm({
 
   const total = normalizedOrder.dishes.reduce(
     (sum, dish) => sum + dish.price * dish.quantity,
-    0
+    0,
   );
 
   return (
