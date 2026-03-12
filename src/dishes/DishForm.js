@@ -1,11 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function DishForm({
   onSubmit,
   onCancel,
   initialState = { name: "", description: "", image_url: "", price: "" },
 }) {
-  const [dish, setDish] = useState(initialState);
+
+  const defaultState = { name: "", description: "", image_url: "", price: "" }
+  const [dish, setDish] = useState(defaultState);
+
+  useEffect(() => {
+    setDish({
+      ...defaultState,
+      ...initialState,
+    });
+  }, [initialState]);
 
   function nameChangeHandler({ target: { name, value } }) {
     setDish((previousDish) => ({

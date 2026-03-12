@@ -13,7 +13,7 @@ import OrderConfirmed from "../orders/OrderComfired";
 
 const initialState = {
   deliverTo: "",
-  mobilePhone: "",
+  mobileNumber: "",
   status: "pending",
   dishes: [],
 };

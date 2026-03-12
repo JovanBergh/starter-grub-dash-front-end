@@ -1,10 +1,10 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import OrderFormDish from "./OrderFormDish";
 
 function OrderForm({
   order = {
     deliverTo: "",
-    mobilePhone: "",
+    mobileNumber: "",
     status: "pending",
     dishes: [],
   },
@@ -15,6 +15,28 @@ function OrderForm({
   readOnly = false,
   showStatus = false,
 }) {
+
+  const defaultOrder ={
+    deliverTo: "",
+    mobileNumber: "",
+    status: "pending",
+    dishes: [],
+  };
+
+  const normalizedOrder = {
+    ...defaultOrder,
+    ...order,
+    order_id: order.order_id ?? order.id ?? undefined,
+    dishes: order.dishes?.map(dish => ({
+      id: dish.dish_id ?? dish.id ?? "",
+      dish_id: dish.dish_id ?? dish.id ?? "",
+      name: dish.name ?? "",
+      quantity: dish.quantity ?? 1,
+      price: dish.price ?? 0,
+    })) ?? [],
+  };
+
+
   function changeHandler({ target: { name, value } }) {
     setOrder((previousOrder) => ({
       ...previousOrder,
@@ -25,7 +47,7 @@ function OrderForm({
   function submitHandler(event) {
     event.preventDefault();
     event.stopPropagation();
-    onSubmit(order);
+    onSubmit(normalizedOrder);
   }
 
   function setDishQuantity(dishId, quantity) {
@@ -53,7 +75,7 @@ function OrderForm({
     });
   }
 
-  const dishes = order.dishes.map((dish) => (
+  const dishes = normalizedOrder.dishes.map((dish) => (
     <OrderFormDish
       key={dish.id}
       dish={dish}
@@ -63,7 +85,7 @@ function OrderForm({
     />
   ));
 
-  const total = order.dishes.reduce(
+  const total = normalizedOrder.dishes.reduce(
     (sum, dish) => sum + dish.price * dish.quantity,
     0
   );
@@ -79,7 +101,7 @@ function OrderForm({
               id="status"
               name="status"
               required={true}
-              value={order.status}
+              value={normalizedOrder.status}
               placeholder="Select a status for the order"
               disabled={readOnly}
               onChange={changeHandler}
@@ -99,7 +121,7 @@ function OrderForm({
             id="deliverTo"
             name="deliverTo"
             required={true}
-            value={order.deliverTo}
+            value={normalizedOrder.deliverTo}
             placeholder="Enter the delivery address"
             disabled={readOnly}
             onChange={changeHandler}
@@ -113,7 +135,7 @@ function OrderForm({
             id="mobileNumber"
             name="mobileNumber"
             required={true}
-            value={order.mobileNumber}
+            value={normalizedOrder.mobileNumber}
             placeholder="Enter your mobile number "
             disabled={readOnly}
             onChange={changeHandler}
