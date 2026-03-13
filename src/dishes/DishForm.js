@@ -5,23 +5,19 @@ function DishForm({
   onCancel,
   initialState = { name: "", description: "", image_url: "", price: 0 },
 }) {
-
-  const defaultState = { name: "", description: "", image_url: "", price: 0 }
-  const [dish, setDish] = useState(defaultState);
-
-  useEffect(() => {
-    setDish({
-      ...defaultState,
-      ...initialState,
-    });
-  }, [initialState]);
+  const [dish, setDish] = useState(() => ({
+    name: initialState.name || "",
+    description: initialState.description || "",
+    image_url: initialState.image_url || "",
+    price: initialState.price || 0,
+  }));
 
   function nameChangeHandler({ target: { name, value } }) {
     setDish((previousDish) => ({
       ...previousDish,
       [name]: value,
       image_url: `https://dummyimage.com/360x360/292929/e3e3e3&text=${encodeURI(
-        value.trim()
+        value.trim(),
       )}`,
     }));
   }
