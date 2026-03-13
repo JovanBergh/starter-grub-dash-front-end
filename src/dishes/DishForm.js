@@ -6,6 +6,7 @@ function DishForm({
   initialState = { name: "", description: "", image_url: "", price: 0 },
 }) {
   const [dish, setDish] = useState(() => ({
+    id: initialState.id,
     name: initialState.name || "",
     description: initialState.description || "",
     image_url: initialState.image_url || "",
