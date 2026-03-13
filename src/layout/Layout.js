@@ -9,7 +9,7 @@ import OrderEdit from "../orders/OrderEdit";
 import DishEdit from "../dishes/DishEdit";
 import DishCreate from "../dishes/DishCreate";
 import Dashboard from "../dashboard/Dashbaord";
-import OrderConfirmed from "../orders/OrderComfired";
+import OrderConfirmed from "../orders/OrderConfirmed";
 
 const initialState = {
   deliverTo: "",

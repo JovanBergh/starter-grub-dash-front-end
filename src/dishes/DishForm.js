@@ -3,10 +3,10 @@ import React, { useState, useEffect } from "react";
 function DishForm({
   onSubmit,
   onCancel,
-  initialState = { name: "", description: "", image_url: "", price: "" },
+  initialState = { name: "", description: "", image_url: "", price: 0 },
 }) {
 
-  const defaultState = { name: "", description: "", image_url: "", price: "" }
+  const defaultState = { name: "", description: "", image_url: "", price: 0 }
   const [dish, setDish] = useState(defaultState);
 
   useEffect(() => {
@@ -36,7 +36,7 @@ function DishForm({
   function priceChangeHandler({ target: { name, value } }) {
     setDish((previousDish) => ({
       ...previousDish,
-      [name]: parseInt(value, 10),
+      [name]: value === "" ? "" : parseInt(value, 10),
     }));
   }
 

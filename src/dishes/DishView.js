@@ -11,9 +11,9 @@ function DishView() {
   const [dish, setDish] = useState({});
   const [error, setError] = useState(null);
 
-  useEffect(loadOrder, [dishId]);
+  useEffect(loadDish, [dishId]);
 
-  function loadOrder() {
+  function loadDish() {
     const abortController = new AbortController();
 
     readDish(dishId, abortController.signal).then(setDish).catch(setError);

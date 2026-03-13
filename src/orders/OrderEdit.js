@@ -19,7 +19,7 @@ function OrderEdit() {
 
   function submitHandler(updatedOrder) {
     updateOrder(updatedOrder)
-      .then((savedOrder) => history.push(`/orders/${savedOrder.id}`))
+      .then((savedOrder) => history.push(`/orders/${savedOrder.id}/confirmed`))
       .catch(setError);
   }
 

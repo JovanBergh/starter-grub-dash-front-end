@@ -8,7 +8,7 @@ function DishEdit() {
   const history = useHistory();
   const { dishId } = useParams();
 
-  const [dish, setDish] = useState({});
+  const [dish, setDish] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ function DishEdit() {
     history.goBack();
   }
 
-  const child = dish.dish_id ? (
+  const child = dish && dish.id ? (
     <DishForm
       initialState={dish}
       onCancel={cancelHandler}
